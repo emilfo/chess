@@ -1,4 +1,4 @@
-package chess;
+package chessGUI;
 
 public class Black
 {
@@ -11,7 +11,7 @@ public class Black
       {
          e.printStackTrace();
       }
-      return new int[] {6,0,5,0};
+      return new int[] {0,6,0,5};
    }
 
 }

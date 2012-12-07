@@ -1,4 +1,4 @@
-package chess;
+package chessGUI;
 
 public class Chess
 {
@@ -42,63 +42,63 @@ public class Chess
    {
       // Setting up white pieces
       board[0][0] = new Piece(Color.white, Type.rook);
-      board[0][1] = new Piece(Color.white, Type.knight);
-      board[0][2] = new Piece(Color.white, Type.bishop);
-      board[0][3] = new Piece(Color.white, Type.king);
-      whiteKing = new int[]{0, 3};
-      board[0][4] = new Piece(Color.white, Type.queen);
-      board[0][5] = new Piece(Color.white, Type.bishop);
-      board[0][6] = new Piece(Color.white, Type.knight);
-      board[0][7] = new Piece(Color.white, Type.rook);
+      board[1][0] = new Piece(Color.white, Type.knight);
+      board[2][0] = new Piece(Color.white, Type.bishop);
+      board[3][0] = new Piece(Color.white, Type.queen);
+      board[4][0] = new Piece(Color.white, Type.king);
+      whiteKing = new int[]{4, 0};
+      board[5][0] = new Piece(Color.white, Type.bishop);
+      board[6][0] = new Piece(Color.white, Type.knight);
+      board[7][0] = new Piece(Color.white, Type.rook);
 
-      board[1][0] = new Piece(Color.white, Type.pawn);
+      board[0][1] = new Piece(Color.white, Type.pawn);
       board[1][1] = new Piece(Color.white, Type.pawn);
-      board[1][2] = new Piece(Color.white, Type.pawn);
-      board[1][3] = new Piece(Color.white, Type.pawn);
-      board[1][4] = new Piece(Color.white, Type.pawn);
-      board[1][5] = new Piece(Color.white, Type.pawn);
-      board[1][6] = new Piece(Color.white, Type.pawn);
-      board[1][7] = new Piece(Color.white, Type.pawn);
+      board[2][1] = new Piece(Color.white, Type.pawn);
+      board[3][1] = new Piece(Color.white, Type.pawn);
+      board[4][1] = new Piece(Color.white, Type.pawn);
+      board[5][1] = new Piece(Color.white, Type.pawn);
+      board[6][1] = new Piece(Color.white, Type.pawn);
+      board[7][1] = new Piece(Color.white, Type.pawn);
 
       // Setting up empty board
-      for (int i = 2; i < 6; i++)
+      for (int i = 0; i < 8; i++)
       {
-         for (int j = 0; j < 8; j++)
+         for (int j = 2; j < 6; j++)
          {
             board[i][j] = null;
          }
       }
 
       // Setting up black pieces
-      board[7][0] = new Piece(Color.black, Type.rook);
-      board[7][1] = new Piece(Color.black, Type.knight);
-      board[7][2] = new Piece(Color.black, Type.bishop);
-      board[7][3] = new Piece(Color.black, Type.king);
-      blackKing = new int[]{7, 3};
-      board[7][4] = new Piece(Color.black, Type.queen);
-      board[7][5] = new Piece(Color.black, Type.bishop);
-      board[7][6] = new Piece(Color.black, Type.knight);
+      board[0][7] = new Piece(Color.black, Type.rook);
+      board[1][7] = new Piece(Color.black, Type.knight);
+      board[2][7] = new Piece(Color.black, Type.bishop);
+      board[3][7] = new Piece(Color.black, Type.queen);
+      board[4][7] = new Piece(Color.black, Type.king);
+      blackKing = new int[]{4, 7};
+      board[5][7] = new Piece(Color.black, Type.bishop);
+      board[6][7] = new Piece(Color.black, Type.knight);
       board[7][7] = new Piece(Color.black, Type.rook);
 
-      board[6][0] = new Piece(Color.black, Type.pawn);
-      board[6][1] = new Piece(Color.black, Type.pawn);
-      board[6][2] = new Piece(Color.black, Type.pawn);
-      board[6][3] = new Piece(Color.black, Type.pawn);
-      board[6][4] = new Piece(Color.black, Type.pawn);
-      board[6][5] = new Piece(Color.black, Type.pawn);
+      board[0][6] = new Piece(Color.black, Type.pawn);
+      board[1][6] = new Piece(Color.black, Type.pawn);
+      board[2][6] = new Piece(Color.black, Type.pawn);
+      board[3][6] = new Piece(Color.black, Type.pawn);
+      board[4][6] = new Piece(Color.black, Type.pawn);
+      board[5][6] = new Piece(Color.black, Type.pawn);
       board[6][6] = new Piece(Color.black, Type.pawn);
-      board[6][7] = new Piece(Color.black, Type.pawn);
+      board[7][6] = new Piece(Color.black, Type.pawn);
    }
 
    public Piece[][] getBoard()
    {
-      movePiece(0, 0, 0, 0, Color.black);
       return board;
    }
    
    public int[] getLastMove()
    {
-      return previousMove;
+      int[] temp = {previousMove[0], Math.abs(previousMove[1]-7), previousMove[2], Math.abs(previousMove[3]-7)};
+      return temp;
    }
    
    private void startGame()
@@ -114,6 +114,7 @@ public class Chess
    
    private void loopMoves() 
    {
+      int[] temp;
       while (true) {
          
          turn = Color.white;
@@ -363,21 +364,21 @@ public class Chess
 
       if (toMove == null)
       {
-         if (newX == oldX + p.forward && oldY == newY)
+         if (newX == oldX && newY == oldY + p.forward)
          {
             return true;
          }
-         else if (newX == oldX + (2 * p.forward) && oldY == newY)
+         else if (newX == oldX && newY == oldY + (2 * p.forward))
          {
             if (!board[oldX][oldY].moved())
             {
-               return (board[oldX + p.forward][oldY] == null);
+               return (board[oldX][oldY + p.forward] == null);
             }
          }
       }
       else
       {
-         if (newX == oldX + p.forward && (newY == newY - 1 || newY == newY + 1))
+         if ((newX == newX - 1 || newX == newX + 1) && newY == oldY + p.forward)
          {
             return true;
          }

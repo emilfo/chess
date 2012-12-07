@@ -1,4 +1,4 @@
-package chess;
+package chessGUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import chess.Chess.Piece;
+import chessGUI.Chess.Piece;
 
 
 public class GUI implements Runnable
@@ -59,9 +59,9 @@ public class GUI implements Runnable
 
       squares = new JLabel[8][8];
 
-      for (int i = 0; i < 8; i++)
+      for (int j = 7; j >= 0; j--)
       {
-         for (int j = 0; j < 8; j++)
+         for (int i = 0; i < 8; i++)
          {
             squares[i][j] = new JLabel();
             squares[i][j].setOpaque(true);
@@ -97,7 +97,7 @@ public class GUI implements Runnable
    void DrawBoard(Chess.Piece[][] board)
    {
 
-      for (int i = 0; i < 8; i++)
+      for (int i = 7; i >= 0; i--)
       {
          for (int j = 0; j < 8; j++)
          {
