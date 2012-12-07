@@ -8,6 +8,7 @@ public class Chess
    int move[];
    int blackKing[];
    int whiteKing[];
+   int previousMove[];
    
    public static void main(String args[]) {
       new Chess();
@@ -28,6 +29,7 @@ public class Chess
 
    Chess()
    {
+      previousMove = new int[]{0,0,0,0};
       move = new int[4];
       board = new Piece[8][8];
       gui = new GUI();
@@ -94,6 +96,11 @@ public class Chess
       return board;
    }
    
+   public int[] getLastMove()
+   {
+      return previousMove;
+   }
+   
    private void startGame()
    {
       init();
@@ -123,7 +130,7 @@ public class Chess
             System.out.println("White in chess after move, black wins!");
             return;
          }
-         
+         previousMove = new int[] {move[0], move[1], move[2], move[3]};
          
          
          turn = Color.black;
@@ -140,6 +147,7 @@ public class Chess
             System.out.println("Black in chess after move, white wins!");
             return;
          }
+         previousMove = new int[] {move[0], move[1], move[2], move[3]};
       } 
    }
 
